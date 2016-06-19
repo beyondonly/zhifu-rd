@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
 /*首页推荐专栏*/
 router.get("/indexListgetZhuanlan",function(req,res,next) {
+	res.set('Access-Control-Allow-Origin','*');
 	var limite = req.query.limit;
 	var offset =req.query.offset;
 	serverData.getZhuanlan(limite,offset,0,function(data){
