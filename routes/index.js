@@ -9,13 +9,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/kk', function(req, res, next) {
-  res.render('kk');
-});
-
 /*首页推荐专栏*/
 router.get("/indexListgetZhuanlan",function(req,res,next) {
-	serverData.getZhuanlan(8,0,0,function(data){
+	var limite = req.query.limit;
+	var offset =req.query.offset;
+	serverData.getZhuanlan(limite,offset,0,function(data){
 		res.json(data)
 	})
 })
