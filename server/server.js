@@ -70,35 +70,44 @@ Server.getWenzhangText= function(Id,callback) {
 	var getLink = "https://zhuanlan.zhihu.com/api/posts/"+Id;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
+
+		//处理文章作者头像问题
+		var id = enddata.author.avatar.id;
+		var template = enddata.author.avatar.template;
+		var reg = /{id}_{size}/g;
+		endavatar = template.replace(reg, id);
+		enddata.author.avatar = endavatar;
+
+		//处理点赞人头
+		for(var i=0,laster = enddata.lastestLikers;i<laster.length; i++) {
+			var template = laster[i].avatar.template;
+			var id = laster[i].avatar.id;
+			var reg = /{id}_{size}/g;
+			laster[i].avatar = template.replace(reg, id);
+		}
 		callback(enddata)
 	},"utf-8")
 }
-
 /**
  * 文章评论
  * @param  Id = "文章编号 来源于列表 url_token limit限制条数" 
  * @return {[type]} [description]
  */
-Server.getWenzhangTextcomments= function(Id,limit,callback) {
+Server.getWenzhangTextcomments = function(Id,limit,callback) {
 	var getLink = "https://zhuanlan.zhihu.com/api/posts/"+Id+"/comments?limit="+limit;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
+		for(var i=0;i<enddata.length; i++) {
+			var template = enddata[i].author.avatar.template;
+			var id = enddata[i].author.avatar.id;
+			var reg = /{id}_{size}/g;
+			enddata[i].author.avatar = template.replace(reg, id);
+		}
+		console.log(enddata)
 		callback(enddata)
 	},"utf-8")
 }
 
-/**
- * 文章评论
- * @param  Id = "文章编号 来源于列表 url_token limit限制条数" 
- * @return {[type]} [description]
- */
-Server.getWenzhangTextcomments= function(Id,limit,callback) {
-	var getLink = "https://zhuanlan.zhihu.com/api/posts/"+Id+"/comments?limit="+limit;
-	nodegrass.get(getLink,function(data){
-		var enddata = JSON.parse(data);
-		callback(enddata)
-	},"utf-8")
-}
 
 /**
  * 文章被专刊收录
@@ -125,7 +134,4 @@ Server.getWenzhangTextLike= function(Id,callback) {
 		callback(enddata)
 	},"utf-8")
 }
-
-
-
 module.exports = Server;

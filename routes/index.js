@@ -46,7 +46,6 @@ router.get("/getZhuanlanposts",function(req,res,next) {
 /*文章详情*/
 router.get("/getWenzhangText",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	console.log(req.query)
 	var Id = req.query.Id;
 	serverData.getWenzhangText(Id,function(data){
 		res.json(data)
@@ -55,6 +54,7 @@ router.get("/getWenzhangText",function(req,res,next) {
 
 /*文章评论*/
 router.get("/getWenzhangTextcomments",function(req,res,next) {
+	res.set('Access-Control-Allow-Origin','*');
 	serverData.getWenzhangTextcomments("20808659",10,function(data){
 		res.json(data)
 	})
