@@ -21,7 +21,10 @@ router.get("/indexListgetZhuanlan",function(req,res,next) {
 
 /*首页推荐文章*/
 router.get("/indexListWenzhang",function(req,res,next) {
-	serverData.getWenzhang(8,0,0,function(data){
+	res.set('Access-Control-Allow-Origin','*');
+	var limite = req.query.limit;
+	var offset =req.query.offset;
+	serverData.getWenzhang(limite,offset,0,function(data){
 		res.json(data)
 	})
 })
@@ -42,7 +45,9 @@ router.get("/getZhuanlanposts",function(req,res,next) {
 
 /*文章详情*/
 router.get("/getWenzhangText",function(req,res,next) {
-	serverData.getWenzhangText("20808659",function(data){
+	res.set('Access-Control-Allow-Origin','*');
+	var query = req.query.query;
+	serverData.getWenzhangText(query,function(data){
 		res.json(data)
 	})
 })
