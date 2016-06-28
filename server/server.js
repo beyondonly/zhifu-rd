@@ -43,6 +43,12 @@ Server.getZhuanlanInfo = function(urllink,callback) {
 	var getLink = "https://zhuanlan.zhihu.com/api/columns"+urllink;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
+
+		var id = enddata.avatar.id;
+		var template = enddata.avatar.template;
+		var reg = /{id}_{size}/g;
+		endavatar = template.replace(reg, id);
+		enddata.avatar = endavatar;
 		callback(enddata)
 	},"utf-8")
 }
@@ -103,7 +109,6 @@ Server.getWenzhangTextcomments = function(Id,limit,callback) {
 			var reg = /{id}_{size}/g;
 			enddata[i].author.avatar = template.replace(reg, id);
 		}
-		console.log(enddata)
 		callback(enddata)
 	},"utf-8")
 }
@@ -134,4 +139,19 @@ Server.getWenzhangTextLike= function(Id,callback) {
 		callback(enddata)
 	},"utf-8")
 }
+
+/**
+ * 推荐阅读列表
+ * @param  limit 条数限制 seed 获取id(任意)
+ */
+
+Server.getrecommendations = function(limit,seed,callback) {
+	var getLink = "https://zhuanlan.zhihu.com/api/recommendations/posts?limit=2&seed=61";
+	nodegrass.get(getLink,function(data){
+		var enddata = JSON.parse(data);
+		callback(enddata)
+	},"utf-8")
+}
+
+
 module.exports = Server;
