@@ -46,8 +46,9 @@ router.get("/getZhuanlanposts",function(req,res,next) {
 /*文章详情*/
 router.get("/getWenzhangText",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	var query = req.query.query;
-	serverData.getWenzhangText(query,function(data){
+	console.log(req.query)
+	var Id = req.query.Id;
+	serverData.getWenzhangText(Id,function(data){
 		res.json(data)
 	})
 })
