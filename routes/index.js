@@ -32,7 +32,8 @@ router.get("/indexListWenzhang",function(req,res,next) {
 /*专栏详细信息*/
 router.get("/getZhuanlanInfo",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	serverData.getZhuanlanInfo("/mutongyumu",function(data){
+	var slug = "/"+req.query.slug;
+	serverData.getZhuanlanInfo(slug,function(data){
 		res.json(data)
 	})
 })
@@ -40,7 +41,8 @@ router.get("/getZhuanlanInfo",function(req,res,next) {
 /*专栏文章列表*/
 router.get("/getZhuanlanposts",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	serverData.getZhuanlanposts("20",function(data){
+	var slug = req.query.slug;
+	serverData.getZhuanlanposts(slug,"20",function(data){
 		res.json(data)
 	})
 })

@@ -40,6 +40,7 @@ Server.getWenzhang = function(limit,offset,seed,callback) {
  * @return {[type]} [description]
  */
 Server.getZhuanlanInfo = function(urllink,callback) {
+	console.log(urllink)
 	var getLink = "https://zhuanlan.zhihu.com/api/columns"+urllink;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
@@ -58,8 +59,8 @@ Server.getZhuanlanInfo = function(urllink,callback) {
  * @param  limit = "专栏列表条数"
  * @return {[type]} [description]
  */
-Server.getZhuanlanposts = function(limit,callback) {
-	var getLink = "https://zhuanlan.zhihu.com/api/columns/mutongyumu/posts?limit="+limit;
+Server.getZhuanlanposts = function(sulg,limit,callback) {
+	var getLink = "https://zhuanlan.zhihu.com/api/columns/"+sulg+"/posts?limit="+limit;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
 		callback(enddata)
