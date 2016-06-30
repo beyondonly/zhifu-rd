@@ -91,6 +91,8 @@ router.get("/getWenzhangTextLike",function(req,res,next) {
 	})
 })
 
+
+//图片中转器
 router.get("/geturl",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
 	var url = req.query.q;
@@ -109,5 +111,7 @@ function Contenttype(type) {
 	}
 	return MIME[type]
 }
+
+
 
 module.exports = router;
