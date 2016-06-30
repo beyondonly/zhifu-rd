@@ -3,6 +3,7 @@ var router = express.Router();
 var nodegrass = require("nodegrass")
 var serverData = require("../server/server.js")
 var request = require("request");
+var Path = require("path")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -89,4 +90,24 @@ router.get("/getWenzhangTextLike",function(req,res,next) {
 		res.json(data)
 	})
 })
+
+router.get("/geturl",function(req,res,next) {
+	res.set('Access-Control-Allow-Origin','*');
+	var url = req.query.q;
+	var statictype = Path.extname(url);
+	serverData.transferImg(url,function(data){
+		res.set('Content-Type', Contenttype(statictype));
+		res.write(data.toString("base64"),"binary")
+		res.end();
+	})
+})
+
+function Contenttype(type) {
+	var MIME = {
+		".jpg":"image/jpeg",
+		".png":"image/png"
+	}
+	return MIME[type]
+}
+
 module.exports = router;

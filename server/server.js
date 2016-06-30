@@ -154,5 +154,13 @@ Server.getrecommendations = function(limit,seed,callback) {
 	},"utf-8")
 }
 
-
+/**
+ * 图片中转路径
+ * @type {[type]}
+ */
+Server.transferImg = function(url,callback) {
+	nodegrass.get(url,function(data){
+		callback(data)
+	},"binary")
+}
 module.exports = Server;
