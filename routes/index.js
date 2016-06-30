@@ -59,7 +59,8 @@ router.get("/getWenzhangText",function(req,res,next) {
 /*文章评论*/
 router.get("/getWenzhangTextcomments",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	serverData.getWenzhangTextcomments("20808659",10,function(data){
+	var Id = req.query.Id;
+	serverData.getWenzhangTextcomments(Id,10,function(data){
 		res.json(data)
 	})
 })
@@ -67,7 +68,8 @@ router.get("/getWenzhangTextcomments",function(req,res,next) {
 /*文章被专刊收录*/
 router.get("/getWenzhangTextcontributed",function(req,res,next) {
 	res.set('Access-Control-Allow-Origin','*');
-	serverData.getWenzhangTextcontributed("20808659",function(data){
+	var id = req.query.id;
+	serverData.getWenzhangTextcontributed(id,function(data){
 		res.json(data)
 	})
 })
