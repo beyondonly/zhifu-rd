@@ -77,7 +77,7 @@ Server.getWenzhangText= function(Id,callback) {
 	var getLink = "https://zhuanlan.zhihu.com/api/posts/"+Id;
 	nodegrass.get(getLink,function(data){
 		var enddata = JSON.parse(data);
-
+        
 		//处理文章作者头像问题
 		var id = enddata.author.avatar.id;
 		var template = enddata.author.avatar.template;
@@ -92,6 +92,9 @@ Server.getWenzhangText= function(Id,callback) {
 			var reg = /{id}_{size}/g;
 			laster[i].avatar = template.replace(reg, id);
 		}
+		var reg=new RegExp(/(<img src=")/g);
+        var newstr = enddata.content.replace(reg,"$1http://127.0.0.1:3000/geturl?q="); 
+        enddata.content = newstr;
 		callback(enddata)
 	},"utf-8")
 }
