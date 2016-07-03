@@ -148,7 +148,7 @@ function login(callback) {
 login(function(data,cookieupload){
 	var kk = '_za=4b343ebd-a751-493c-9e8a-6095ba11e4df; _xsrf=7890b609478a1d2bae8d90d25fdcbac8; __utmt=1; _zap=f0a74007-6994-4773-8c35-d3946ad419f8; q_c1=b183d9b42f024722b45d044f97125e05|1467558289000|1467558289000; l_cap_id="YjA2ZDU5OGViYzhkNDI0ZjkxMmNkMzk0ZTM4MDdkNzY=|1467558289|6e918e6fa82f34260d4dbc1787df8e636f391df6"; cap_id="MzYxNjlhMGQ0NzYzNGM1ZWIxN2RiZGJhYTFkODQyNGU=|1467558289|9722a4c479c6570fcec0151c6f362fb10a7b3eb9"; d_c0="ADBApkNmLAqPTuzTwOnGtAPtzkw3QSrQY9s=|1467558289"; login="NGY3ZTZiNTkzODAyNDVmMGI1NDE3ZmY2YWE0YzdjNmU=|1467558428|921d3f1e077edbcd92195e00136855cc5db7eb33"; a_t="2.0AABA7soqAAAXAAAAHLegVwAAQO7KKgAAADBApkNmLAoXAAAAYQJVTRy3oFcABYHEsuqZvk4X4lsUGrKEjUwXya10epAsxor1U1Y4Yj6zO36YJGTZOw=="; z_c0=Mi4wQUFCQTdzb3FBQUFBTUVDbVEyWXNDaGNBQUFCaEFsVk5ITGVnVndBRmdjU3k2cG0tVGhmaVd4UWFzb1NOVEJmSnJR|1467558428|5b85e319ea9bed7dc960845d395a974fba8cf8fa; n_c=1; __utma=51854390.635298240.1467558479.1467558479.1467558479.1; __utmb=51854390.2.10.1467558479; __utmc=51854390; __utmz=51854390.1467558479.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=51854390.100-1|2=registration_date=20140404=1^3=entry_date=20140404=1';
 	var querystring = require('querystring');
-	var data=querystring.stringify({password:"39593FCTLOVEDLX",remember_me:true,email:"825804189@qq.com",_xsrf:'7890b609478a1d2bae8d90d25fdcbac8',captcha:"n9vh"});
+	var data=querystring.stringify({password:"aaa",remember_me:true,email:"825804189@qq.com",_xsrf:'7890b609478a1d2bae8d90d25fdcbac8',captcha:"n9vh"});
 	var opt = {  
         method: "POST",  
         host: "www.zhihu.com",  
