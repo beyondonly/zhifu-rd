@@ -6,7 +6,7 @@ var request = require("request");
 var Path = require("path")
 var http = require('http');
 var https = require('https');
-var superagent = require('superagent')
+var LOGIN = require("../server/login.js");
 
 
 /* GET home page. */
@@ -119,75 +119,59 @@ function Contenttype(type) {
 	return MIME[type]
 }
 
-//模拟登录
-function login(callback) {
-	nodegrass.get("https://www.zhihu.com/",function(data,status,headers){
-		var cookie = headers['set-cookie'];
-		var cookieupload = "";
-		for(var i=0; i<cookie.length;i++) {
-			cookieupload+=cookie[i].replace(/Path=\//g,"").replace(/Domain=zhihu.com;/g,"")
-		}
+// login(function(data,cookieupload){
+// 	var kk = 'q_c1=65d7f9117f8f48eaa5d8e82fc9210024|1467560251000|1467560251000; _xsrf=30f26fce16909826f41eefa9d03a1d09; l_cap_id="NjMyMDZkYWRhYzE4NGEzMDlkYTA3YTNkZmZmZGFmZGY=|1467560251|4d82e5bd6ee2cb512f8e558d2f9b7d6ed553c1cf"; cap_id="NmMwZTNlYzgzYTBhNGFkNzkzYTY0ZWUxM2QxMzE3ZmE=|1467560251|3aeba14b8d4ea3fe83c23510b5dfdbd0a8eec5b7"; d_c0="ACCA479tLAqPTqzDDJ4ffUxftZq2FVsKcc8=|1467560252"; _zap=d29a24c3-235e-437c-84bd-87c2150a1b68; _za=c26df599-d3ac-40d4-92d3-aff5b25c0968; __utmt=1; __utma=51854390.1980691443.1467560252.1467560252.1467560252.1; __utmb=51854390.4.10.1467560252; __utmc=51854390; __utmz=51854390.1467560252.1.1.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/; __utmv=51854390.010--|3=entry_date=20160703=1; n_c=1';
+// 	var querystring = require('querystring');
+// 	var data=querystring.stringify({password:"939593FCTLOVEDLX",remember_me:true,email:"825804189@qq.com",_xsrf:'30f26fce16909826f41eefa9d03a1d09',captcha:"n9vh"});
+// 	var opt = {  
+//         method: "POST",  
+//         host: "www.zhihu.com",  
+//         port: 443,  
+//         path: "/login/email",  
+//         headers: {
+// 			"User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
+//         	"Accept":'*/*',
+// 			'Accept-Encoding':'gzip, deflate, br',
+// 			'Accept-Language':'zh-CN,zh;q=0.8,en;q=0.6',
+// 			'Cache-Control':'no-cache',
+//             'Content-Type':"application/x-www-form-urlencoded",
+//             "Connection":"keep-alive",
+//             "Content-Length": data.length,
+//             "Cookie":kk,
+//             'Host':"www.zhihu.com",
+// 			'Origin':"https://www.zhihu.com",
+// 			"X-Requested-With":"XMLHttpRequest",
+// 			"Pragma":"no-cache",
+// 			"Referer":"Referer:http://www.zhihu.com/signin?next=https://zhuanlan.zhihu.com/"
+//         }  
+// 	};  
+// 	var req = https.request(opt, function (serverFeedback) { 
+//         serverFeedback.setEncoding('utf8');
+//         var endcookir = serverFeedback.headers['set-cookie'];
+//         var _xsrf_endcookir = "";
+//         var reg = /login/g;
+//         for(var i=0;i<endcookir.length;i++) {
+// 			if(reg.test(endcookir[i])){
+// 				_xsrf_endcookir = endcookir[i]
+// 			}
+// 		}
 		
-		var str = headers['set-cookie'];
-		var reg = /_xsrf/g;
-		var _xsrf_str = "";
-		for(var i=0;i<str.length;i++) {
-			if(reg.test(str[i])){
-				_xsrf_str = str[i]
-			}
-		}
+//         serverFeedback.on("data",function(cendata,a,b) {
+//         	var enddata = JSON.parse(cendata);
+//         	console.log(enddata)
+//         })
+//         return;
+//     }).on('error', function(e) {
+//       console.log("Got error: " + e.message);
+// 	});
+// 	req.write(data);
+// 	req.end();
+// })
 
 
-		var rega = /_xsrf=(\w+)/ig; 
-		_xsrf_str.replace(rega, function() { 
-			var _xsrf= arguments[1];
-			callback(_xsrf,cookieupload)
-		}); 
-	},"utf-8")
-}
-login(function(data,cookieupload){
-	var kk = '_za=4b343ebd-a751-493c-9e8a-6095ba11e4df; _xsrf=7890b609478a1d2bae8d90d25fdcbac8; __utmt=1; _zap=f0a74007-6994-4773-8c35-d3946ad419f8; q_c1=b183d9b42f024722b45d044f97125e05|1467558289000|1467558289000; l_cap_id="YjA2ZDU5OGViYzhkNDI0ZjkxMmNkMzk0ZTM4MDdkNzY=|1467558289|6e918e6fa82f34260d4dbc1787df8e636f391df6"; cap_id="MzYxNjlhMGQ0NzYzNGM1ZWIxN2RiZGJhYTFkODQyNGU=|1467558289|9722a4c479c6570fcec0151c6f362fb10a7b3eb9"; d_c0="ADBApkNmLAqPTuzTwOnGtAPtzkw3QSrQY9s=|1467558289"; login="NGY3ZTZiNTkzODAyNDVmMGI1NDE3ZmY2YWE0YzdjNmU=|1467558428|921d3f1e077edbcd92195e00136855cc5db7eb33"; a_t="2.0AABA7soqAAAXAAAAHLegVwAAQO7KKgAAADBApkNmLAoXAAAAYQJVTRy3oFcABYHEsuqZvk4X4lsUGrKEjUwXya10epAsxor1U1Y4Yj6zO36YJGTZOw=="; z_c0=Mi4wQUFCQTdzb3FBQUFBTUVDbVEyWXNDaGNBQUFCaEFsVk5ITGVnVndBRmdjU3k2cG0tVGhmaVd4UWFzb1NOVEJmSnJR|1467558428|5b85e319ea9bed7dc960845d395a974fba8cf8fa; n_c=1; __utma=51854390.635298240.1467558479.1467558479.1467558479.1; __utmb=51854390.2.10.1467558479; __utmc=51854390; __utmz=51854390.1467558479.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=51854390.100-1|2=registration_date=20140404=1^3=entry_date=20140404=1';
-	var querystring = require('querystring');
-	var data=querystring.stringify({password:"aaa",remember_me:true,email:"825804189@qq.com",_xsrf:'7890b609478a1d2bae8d90d25fdcbac8',captcha:"n9vh"});
-	var opt = {  
-        method: "POST",  
-        host: "www.zhihu.com",  
-        port: 443,  
-        path: "/login/email",  
-        headers: {
-			"User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
-        	"Accept":'*/*',
-			'Accept-Encoding':'gzip, deflate, br',
-			'Accept-Language':'zh-CN,zh;q=0.8,en;q=0.6',
-			'Cache-Control':'no-cache',
-            'Content-Type':"application/x-www-form-urlencoded",
-            "Connection":"keep-alive",
-            "Content-Length": data.length,
-            "Cookie":kk,
-            'Host':"www.zhihu.com",
-			'Origin':"https://www.zhihu.com",
-			"X-Requested-With":"XMLHttpRequest",
-			"Pragma":"no-cache",
-			"Referer":"https://www.zhihu.com/"
-        }  
-	};  
-	var req = https.request(opt, function (serverFeedback) { 
-			console.log(serverFeedback.statusCode) 
-        serverFeedback.setEncoding('utf8');
-        serverFeedback.on("data",function(cendata) {
-        	var enddata = JSON.parse(cendata);
-        	console.log(enddata)
-        })
-        return;
-    }).on('error', function(e) {
-      console.log("Got error: " + e.message);
-	});
-	req.write(data);
-	req.end();
+LOGIN(function(){
+
 })
-
-
-
 
 
 module.exports = router;
