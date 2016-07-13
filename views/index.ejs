@@ -1,11 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+</head>
+<body>
+	<button>ncai</button>
+	<p>k</p>
+</body>
+<script type="text/javascript">
+	$('button').on("click",function() {
+		$.ajax({
+			url: '/kk',
+			type: 'get',
+			dataType: 'html'
+		})
+		.done(function(data) {
+			$('body').append(data)
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	})
+
+	var fctwindow = 2;
+
+	$("p").on('click',function(){
+		$('body').html("dasdsadsa")
+	})
+	var tt = window;
+</script>
 </html>
